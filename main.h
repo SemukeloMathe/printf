@@ -1,32 +1,36 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef HOLBERTON_H
+#define HOLBERTON_H
 
 #include <stdarg.h>
-#include <unistd.h>
+#include <stddef.h>
 #include <stdlib.h>
-#include <limits.h>
-#include <stdio.h>
 
 /**
- * struct convert - struct for print function
- * @fmt: index
- * @print: pointer for print function
+ * struct structprint - structure containing
+ * @q: the location and method to translate data to characters.
+ * @u: print function for specific type.
  *
- * Description: stores pointers
+ * Return: int
  */
-typedef struct pt_fmt
+typedef struct structprint
 {
-	char *fmt;
-	int (*print)(va_list valist);
-} pt_fmt;
+	char *q;
+	int (*u)(char *format, va_list);
+} structype;
 
-
-int _printf(const char *format, ...);
-int _putchar(char c);
-int print_char(va_list);
-int print_string(va_list);
-int print_percent(va_list);
-int get_print(const char *, va_list, pt_fmt pt_format[]);
-
-
+int _putchar(char ch);
+int _puts(char *string);
+int printc(char *format, va_list);
+int printstr(char *format, va_list);
+int (*driver(char *format))(char *format, va_list);
+int _printf(char *format, ...);
+int printint(char *format, va_list pa);
+int integer(int number);
+int contadordigit(int number);
+int _abs(int number);
+int printpercent(char *format, va_list pa);
+int printhex(char *format, va_list);
+int printHEX(char *format, va_list);
+int printocta(char *format, va_list);
+int print_unsign(char *format, va_list);
 #endif

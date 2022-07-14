@@ -1,65 +1,34 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
 #include <unistd.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <limits.h>
 
 /**
-* struct storage - structure that holds information on the buffer
-* @size: holds the size to write from the buffer
-* @box: pointer to the array
-* @start: pointer to the beginning of the array, will not be modified
+* struct op - flag / function object
+* @c: flag
+* @f: function
 */
-typedef struct storage
-{
-	int size;
-	char *box;
-	char *start;
-} mk_buffer;
 
-/**
-* struct format - a structure that holds the string to be printed and a format
-* checker function pointer
-* @format: holds the string to print
-* @f: a function pointer
-*/
-typedef struct format
+typedef struct op
 {
-	char *format;
-	mk_buffer(*f)(mk_buffer, va_list);
-} format_t;
+	char *c;
+	int (*f)(va_list);
+} op_t;
 
-/* Essential functions */
 int _printf(const char *format, ...);
+int _putchar(char c);
+int print_c(va_list ar_list);
+int (*get_func(char s))(va_list ar_list);
+int print_s(va_list ar_list);
+int print_d(va_list ar_list);
+int print_i(va_list ar_numlist);
+int print_b(va_list binary_list);
+int print_u(va_list ar_list);
+int print_o(va_list ar_list);
+int print_x(va_list ar_list);
+int print_X(va_list ar_list);
 
-/* Conversion specifier functions */
-mk_buffer(*get_format(const char *format))(mk_buffer, va_list);
-mk_buffer char_fmt(mk_buffer, va_list args);
-mk_buffer str_fmt(mk_buffer, va_list args);
-mk_buffer int_fmt(mk_buffer, va_list args);
-mk_buffer rev_fmt(mk_buffer, va_list args);
-mk_buffer rot13_fmt(mk_buffer buffer, va_list args);
-mk_buffer upp_hex_fmt(mk_buffer buffer, va_list args);
-mk_buffer low_hex_fmt(mk_buffer buffer, va_list args);
-mk_buffer space_fmt(mk_buffer container, const char *format, va_list args);
-mk_buffer default_fmt(mk_buffer container, const char *format);
-mk_buffer nl_fmt(mk_buffer buff, va_list var);
-mk_buffer spc_fmt(mk_buffer buff, va_list var);
-mk_buffer binary_fmt(mk_buffer buffer, va_list args);
-mk_buffer ptr_fmt(mk_buffer buffer, va_list args);
-
-/* Helper functions */
-unsigned int _strlen(char *str);
-mk_buffer rec_digits(int, mk_buffer);
-mk_buffer create_buffer(mk_buffer);
-mk_buffer add_buff(mk_buffer buff, va_list var, const char *fmt, char custom);
-void check_null(const char *);
-char *itoa(int num, int base);
-
-int is_printable(int);
-char *cvrt_upper_hex(int i);
-mk_buffer cap_s_fmt(mk_buffer buff, va_list var);
-
-#endif /* _MAIN_H_ */
+#endif
